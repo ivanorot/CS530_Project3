@@ -1,18 +1,20 @@
-#include <iostream>
-#include <string>
-using namespace std;
+#include "Syntax.h"
 
-class Syntax {
-private:
-	//LexicalAnalyzer
+Syntax::Syntax() {
+    
+}
 
-public:
-	//constructor (lexical analyzer as parameter)
+void Syntax::readline(string line){
+    
+}
 
-	void readline(string line){
-		//get
+bool Syntax::assignment(list<string> tokens) {
+    
+}
 
-	}
+bool Syntax::expression(list<string> tokens) {
+    
+}
 
 /*
 * 
@@ -53,5 +55,3 @@ bool checkif(string token, string check){
 if (token == check)
 
 */
-
-};
