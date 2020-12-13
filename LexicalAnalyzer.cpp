@@ -80,6 +80,7 @@ bool LexicalAnalyzer::checkIfTerminal(int ascii) {
     return false;
 }
 
+//=
 bool LexicalAnalyzer::checkIfEqual(int ascii) {
     if (ascii == 61) {
         return true;
