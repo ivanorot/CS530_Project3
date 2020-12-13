@@ -8,18 +8,11 @@ using namespace std;
 
 class LexicalAnalyzer {
 private:
-    string *lexems;
+
     list<string> tokens;
-    int lexCount;
-    int size;
 
-public:
-    LexicalAnalyzer() {
-       
-    }
 
-    string getNextToken();
-    void saveLexems(string inputstring);
+    //functions
     bool checkIfId(string id);
     bool checkIfChar(int ascii);
     bool checkIfNum(int ascii);
@@ -30,6 +23,13 @@ public:
 
     bool checkIfLeftParenthesis(char par);
     bool checkIfRightParenthesis(char par);
+
+public:
+    LexicalAnalyzer();
+
+    string getNextToken();
+    void saveLexems(string inputstring);
+    
 };
 #endif
 
