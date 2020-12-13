@@ -3,30 +3,35 @@
 
 #include <iostream>
 #include <string>
+#include <list>
 using namespace std;
 
 class LexicalAnalyzer {
 private:
     string *lexems;
-    string *tokens;
+    list<string> tokens;
     int lexCount;
     int size;
 
 public:
     LexicalAnalyzer() {
-        lexCount = 0;
-        lexems = new string[10];
-        tokens = new string[10];
-        size = 10;
+       
     }
 
+    string getNextToken();
     void saveLexems(string inputstring);
-    void expandArray();
     bool checkIfId(string id);
     bool checkIfChar(int ascii);
     bool checkIfNum(int ascii);
-    bool checkIfOp(int ascii);
-    bool checkIfTerminal(int ascii);
-    bool checkIfEqual(int ascii);
+    bool checkIfOp(string op);
+    bool checkIfTerminal2(char terminal);
+    bool checkIfTerminal(char terminal);
+    bool checkIfEqual(string equal);
+
+    bool checkIfLeftParenthesis(char par);
+    bool checkIfRightParenthesis(char par);
 };
 #endif
+
+
+

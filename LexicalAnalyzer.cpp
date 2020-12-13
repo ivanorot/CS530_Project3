@@ -2,10 +2,6 @@
 
 
 LexicalAnalyzer::LexicalAnalyzer() {
-    lexCount = 0;
-    lexems = new string[10];
-    tokens = new string[10];
-    size = 10;
 }
 
 void LexicalAnalyzer::saveLexems(string inputstring) {
@@ -14,12 +10,52 @@ void LexicalAnalyzer::saveLexems(string inputstring) {
     string temp;
     bool flag;
     for (int i = 0; i < length; i++) {
-        if (inputstring[i] != ' ' || checkIfTerminal(inputstring[i])) {
+        if (inputstring[i] == ' ' || checkIfTerminal2(inputstring[i])) {
+            if (checkIfId(temp) == true) {
+                tokens.push_back("Id");
+            }
+            else if (checkIfEqual(temp) == true) {
+                tokens.push_back("Equal");
+            }
 
+            else if (checkIfOp(temp) == true) {
+                tokens.push_back("Op");
+            }
+            else {
+                tokens.push_back("Not a valid token");
+            }
+            temp.clear();
+            if (checkIfTerminal(inputstring[i])) {
+                tokens.push_back("terminal");
+            }
+            else if (checkIfLeftParenthesis(inputstring[i])) {
+                tokens.push_back("(");
+            }
+            else if (checkIfRightParenthesis(inputstring[i])) {
+                tokens.push_back(")");
+            }
+
+        }
+        else {
+            temp += inputstring[i];
         }
     }
 }
 
+string LexicalAnalyzer::getNextToken() {
+    int size = tokens.size();
+    string temp;
+    if (size > 0) {
+        temp += tokens.front();
+        tokens.pop_front();
+        return temp;
+    }
+    else {
+        return ",";
+    }
+};
+
+/*/
 void LexicalAnalyzer::expandArray() {
     string* temp;
     string* temp2;
@@ -34,6 +70,7 @@ void LexicalAnalyzer::expandArray() {
         tokens = temp2;
     }
 }
+*/
 
 bool LexicalAnalyzer::checkIfId(string id) {
     int length = id.length();
@@ -44,10 +81,12 @@ bool LexicalAnalyzer::checkIfId(string id) {
     }
     for (int i = 0; i < length; i++) {
         ascii = id[i];
-        if (ascii < 48 || ascii > 57) {
-            
+        if ((checkIfNum(ascii) == false) && (checkIfChar(ascii) == false)) {
+            return false;
         }
     }
+    return true;
+
 }
 
 bool LexicalAnalyzer::checkIfChar(int ascii) {
@@ -66,25 +105,48 @@ bool LexicalAnalyzer::checkIfNum(int ascii) {
 
 
 //+ - * / %
-bool LexicalAnalyzer::checkIfOp(int ascii) {
-    if (ascii==42||ascii==43||ascii == 45 || ascii == 47 || ascii == 37) {
+bool LexicalAnalyzer::checkIfOp(string op) {
+    if (op=="+"||op=="-"||op == "*" || op=="/" || op=="%") {
 			return true;
     }
     return false;
 }
 
-bool LexicalAnalyzer::checkIfTerminal(int ascii) {
-    if (ascii == 59) {
+//;
+bool LexicalAnalyzer::checkIfTerminal2(char terminal) {
+    
+    if (terminal == ';' || (terminal == '(') || (terminal == ')')) {
+        return true;
+    }
+    return false;
+}
+
+bool LexicalAnalyzer::checkIfTerminal(char terminal) {
+
+    if (terminal == ';') {
         return true;
     }
     return false;
 }
 
 //=
-bool LexicalAnalyzer::checkIfEqual(int ascii) {
-    if (ascii == 61) {
+bool LexicalAnalyzer::checkIfEqual(string equal) {
+    if (equal == "=") {
         return true;
     }
     return false;
 }
 
+bool LexicalAnalyzer::checkIfLeftParenthesis(char par) {
+    if (par == '(') {
+        return true;
+    }
+    return false;
+}
+
+bool LexicalAnalyzer::checkIfRightParenthesis(char par) {
+    if (par == ')') {
+        return true;
+    }
+    return false;
+}
