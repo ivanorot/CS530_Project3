@@ -37,7 +37,7 @@ bool Syntax::assignment(list<string> tokensList) {
                 tokensList.pop_back();
                 
                 if (expression(tokensList))
-                    {return true;}
+                    return true;
             }
         }
     }
@@ -52,9 +52,9 @@ bool Syntax::expression(list<string> tokensList) {
             tokensList.pop_front();
             
             if (tokensList.empty())
-                {return true;}
+                return true;
             else
-                {expression(tokensList);}
+                expression(tokensList);
         }
     }
     else return false;
