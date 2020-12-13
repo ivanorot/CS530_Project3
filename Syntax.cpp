@@ -1,19 +1,48 @@
 #include "Syntax.h"
 
-Syntax::Syntax() {
+Syntax::Syntax() {}
+
+void Syntax::parseLine(string line){
+    LexicalAnalyzer = lex_analyzer;
+    lex_analyzer.saveLexems(line);
     
+    string temp = lex_analyzer.getNextToken();
+    list<string> givenTokens;
+    
+    while (temp != ".") {
+        givenTokens.push_back(temp);
+        temp = lex_analyzer.getNextToken();
+    }
+    if (assignment(givenTokens))
+        return true;
+    else if (expression(givenTokens))
+        return true;
+    else
+        return false;
 }
 
-void Syntax::readline(string line){
-    
+bool Syntax::assignment(list<string> tokensList) {
+    if (tokensList.pop_front() == "Id") {
+        if (tokensList.pop_fron() == "Equal") {
+            if (tokensList.pop_back() == "terminal") {
+                if (expression(tokensList))
+                    return true
+            }
+        }
+    }
+    else return false;
 }
 
-bool Syntax::assignment(list<string> tokens) {
-    
-}
-
-bool Syntax::expression(list<string> tokens) {
-    
+bool Syntax::expression(list<string> tokensList) {
+    if (tokensList.pop_front() == "Id") {
+        if (tokensList.pop_fron() == "Op") {
+            if (tokensList.empty())
+                return true;
+            else
+                expression(tokensList);
+        }
+    }
+    else return false;
 }
 
 /*

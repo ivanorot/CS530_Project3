@@ -5,15 +5,15 @@
 
 class Syntax {
 private:
-    LexicalAnalyzer lexical;
+    //LexicalAnalyzer lexical;
 
 public:
     //constructor (lexical analyzer as parameter)
     Syntax();
 
-    void readline(string line);
-    bool assignment(list<string> tokens);
-    bool expression(list<string> tokens);
+    void parseLine(string line);
+    bool assignment(list<string> tokensList);
+    bool expression(list<string> tokensList);
 };
 #endif
 
@@ -48,7 +48,7 @@ return true
 
 
 [ id, op , id, .
-
+st
 }
 
 bool checkif(string token, string check){
