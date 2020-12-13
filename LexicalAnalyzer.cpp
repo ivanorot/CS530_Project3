@@ -21,7 +21,7 @@ void LexicalAnalyzer::saveLexems(string inputstring) {
             else if (checkIfOp(temp) == true) {
                 tokens.push_back("Op");
             }
-            else {
+            else if(temp.length()>0){
                 tokens.push_back("Not a valid token");
             }
             temp.clear();
@@ -44,15 +44,17 @@ void LexicalAnalyzer::saveLexems(string inputstring) {
 }
 
 string LexicalAnalyzer::getNextToken() {
-    int size = tokens.size();
-    string temp;
-    if (size > 0) {
-        temp += tokens.front();
-        tokens.pop_front();
-        return temp;
-    }
-    else {
-        return ",";
+    if (tokens.empty() == false) {
+        int size = tokens.size();
+        string temp;
+        if (size > 0) {
+            temp += tokens.front();
+            tokens.pop_front();
+            return temp;
+        }
+        else {
+            return ",";
+        }
     }
 };
 
