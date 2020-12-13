@@ -15,49 +15,66 @@ bool Syntax::parseLine(string line){
         temp = lex_analyzer.getNextToken();
     }
     if (assignment(givenTokens)) {
-        cout << "true assignment above" << endl;
+        cout << "true assignment statement above" << endl << endl;
         return true;
     }
     else if (expression(givenTokens)) {
-        cout << "true expression above" << endl;
+        cout << "true expression statement above" << endl << endl;
         return true;
     }
-    else
+    else {
+        cout << "bad statement above" << endl << endl;
         return false;
+    }
 }
 
 bool Syntax::assignment(list<string> tokensList) {
-    if (tokensList.front() == "Id") {
-        tokensList.pop_front();
-        
-        if (tokensList.front() == "Equal") {
-            tokensList.pop_front();
-            
-            if (tokensList.back() == "terminal") {
-                tokensList.pop_back();
-                
-                if (expression(tokensList))
+    list<string> currentTokens = tokensList;
+    
+    cout << "assignment here" << endl;
+    if (currentTokens.front() == "Id") {
+        currentTokens.pop_front();
+        cout << "Id made it" << endl;
+        if (currentTokens.front() == "Equal") {
+            currentTokens.pop_front();
+            cout << "Equal made it" << endl;
+            if (currentTokens.back() == "terminal") {
+                currentTokens.pop_back();
+                cout << "found terminal" << endl;
+                if (expression(currentTokens)) {
+                    cout << "successful assignment return" << endl;
                     return true;
+                }
             }
         }
     }
-    else return false;
+    return false;
 }
 
 bool Syntax::expression(list<string> tokensList) {
-    if (tokensList.front() == "Id") {
-        tokensList.pop_front();
+    list<string> currentTokens = tokensList;
+    
+    cout << "expression here" << endl;
+    if (currentTokens.front() == "Id") {
+        currentTokens.pop_front();
+        cout << "Id made it" << endl;
+        cout << "Current Tokens empty?: " << currentTokens.empty() << endl;
+        if (currentTokens.empty()) {
+            cout << "successful expression return" << endl;
+            return true;
+        }
         
-        if (tokensList.front() == "Op") {
-            tokensList.pop_front();
+        if (currentTokens.front() == "Op") {
+            currentTokens.pop_front();
+            cout << "Op made it" << endl;
             
-            if (tokensList.empty())
+            if (currentTokens.empty())
                 return true;
             else
-                expression(tokensList);
+                return expression(currentTokens);
         }
     }
-    else return false;
+    return false;
 }
 
 /*
