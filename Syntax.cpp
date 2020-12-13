@@ -2,31 +2,42 @@
 
 Syntax::Syntax() {}
 
-void Syntax::parseLine(string line){
-    LexicalAnalyzer = lex_analyzer;
+bool Syntax::parseLine(string line){
+    LexicalAnalyzer lex_analyzer;
     lex_analyzer.saveLexems(line);
     
     string temp = lex_analyzer.getNextToken();
     list<string> givenTokens;
     
     while (temp != ".") {
+        cout << "temp: " << temp << endl;
         givenTokens.push_back(temp);
         temp = lex_analyzer.getNextToken();
     }
-    if (assignment(givenTokens))
+    if (assignment(givenTokens)) {
+        cout << "true assignment above" << endl;
         return true;
-    else if (expression(givenTokens))
+    }
+    else if (expression(givenTokens)) {
+        cout << "true expression above" << endl;
         return true;
+    }
     else
         return false;
 }
 
 bool Syntax::assignment(list<string> tokensList) {
-    if (tokensList.pop_front() == "Id") {
-        if (tokensList.pop_fron() == "Equal") {
-            if (tokensList.pop_back() == "terminal") {
+    if (tokensList.front() == "Id") {
+        tokensList.pop_front();
+        
+        if (tokensList.front() == "Equal") {
+            tokensList.pop_front();
+            
+            if (tokensList.back() == "terminal") {
+                tokensList.pop_back();
+                
                 if (expression(tokensList))
-                    return true
+                    {return true;}
             }
         }
     }
@@ -34,12 +45,16 @@ bool Syntax::assignment(list<string> tokensList) {
 }
 
 bool Syntax::expression(list<string> tokensList) {
-    if (tokensList.pop_front() == "Id") {
-        if (tokensList.pop_fron() == "Op") {
+    if (tokensList.front() == "Id") {
+        tokensList.pop_front();
+        
+        if (tokensList.front() == "Op") {
+            tokensList.pop_front();
+            
             if (tokensList.empty())
-                return true;
+                {return true;}
             else
-                expression(tokensList);
+                {expression(tokensList);}
         }
     }
     else return false;

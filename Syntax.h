@@ -11,7 +11,7 @@ public:
     //constructor (lexical analyzer as parameter)
     Syntax();
 
-    void parseLine(string line);
+    bool parseLine(string line);
     bool assignment(list<string> tokensList);
     bool expression(list<string> tokensList);
 };
