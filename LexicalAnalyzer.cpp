@@ -40,6 +40,7 @@ void LexicalAnalyzer::saveLexems(string inputstring) {
             temp += inputstring[i];
         }
     }
+    tokens.push_back(".");
 }
 
 string LexicalAnalyzer::getNextToken() {
