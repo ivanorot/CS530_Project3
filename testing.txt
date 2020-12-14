@@ -5,3 +5,4 @@
  good * one - two2 / three3 
  good * (one + two) * three
  good * ((one + two) * three)
+ bad = one + ( two ;
