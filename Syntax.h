@@ -9,6 +9,7 @@ private:
     
 public:
     list<string> termTokens;
+    bool extendedExp = false;
     Syntax();
 
     bool parseLine(string line);

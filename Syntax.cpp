@@ -48,7 +48,7 @@ bool Syntax::assignment(list<string> tokensList) {
                 cout << "found terminal" << endl;
                 
                 if (expression(currentTokens)) {
-                    cout << "successful assignment return" << endl;
+                    cout << "successful expression return" << endl;
                     return true;
                 }
             }
@@ -62,11 +62,26 @@ bool Syntax::assignment(list<string> tokensList) {
 bool Syntax::expression(list<string> tokensList) {
     termTokens = tokensList;
     
-    cout << "check for assignment here" << endl;
+    cout << "check for expression here" << endl;
     if (term()) {
         cout << "  successful term" << endl;
+        if (extendedExp == true && termTokens.empty())
+            return true;
+        
         if (termTokens.front() == "Op") {
+            termTokens.pop_front();
+            cout << "Op made it" << endl;
+            
             if (term()) {
+                cout << "  successful term" << endl;
+                
+                if (termTokens.empty()) return true;
+                else if (termTokens.front() == "Op") {
+                    termTokens.pop_front();
+                    cout << "Extended Op made it" << endl;
+                    extendedExp = true;
+                    return expression(termTokens);
+                }
                 return true;
             }
         }
@@ -74,14 +89,14 @@ bool Syntax::expression(list<string> tokensList) {
     return false;
 }
 
-
 bool Syntax::term() {
     cout << "check for term here" << endl;
     if (termTokens.front() == "Id") {
         cout << "  Id term" << endl;
         termTokens.pop_front();
         
-        if (termTokens.front() == ")") {
+        if (termTokens.empty()) return true;
+        else if (termTokens.front() == ")") {
             cout << "  close ) term" << endl;
             termTokens.pop_front();
             return true;
@@ -91,7 +106,7 @@ bool Syntax::term() {
     else if (termTokens.front() == "(") {
         termTokens.pop_front();
         cout << "  open ( term" << endl;
-        expression(termTokens);
+        return expression(termTokens);
     }
     return false;
 }

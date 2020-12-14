@@ -2,5 +2,5 @@
  good = one1 / two2 * three3 ;
  good = one1 * two2 + three3 ;
  bad = = one1 + two2 - three3 / four4 ;
- good * one - two2 / three3
+ good * one - two2 / three3 
  good * (one + two) * three
