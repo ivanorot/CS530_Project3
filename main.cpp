@@ -43,7 +43,7 @@ int main(int argc, char* argv[]) {
     
     while (file.good()) {
         getline(file, inputLine);
-        cout << inputLine << endl;
+        //cout << inputLine << endl;
         syntax_analyzer.parseLine(inputLine);
     }
     file.close();
