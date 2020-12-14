@@ -6,14 +6,17 @@
 class Syntax {
 private:
     //LexicalAnalyzer lexical;
-
+    //list<string> termTokens;
+    
 public:
     //constructor (lexical analyzer as parameter)
+    list<string> termTokens;
     Syntax();
 
     bool parseLine(string line);
     bool assignment(list<string> tokensList);
     bool expression(list<string> tokensList);
+    bool term();
 };
 #endif
 
