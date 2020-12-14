@@ -24,6 +24,7 @@ private:
     bool checkIfLeftParenthesis(char par);
     bool checkIfRightParenthesis(char par);
 
+    void checkFun(string temp);
 public:
     LexicalAnalyzer();
 

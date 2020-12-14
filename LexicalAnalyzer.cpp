@@ -11,19 +11,7 @@ void LexicalAnalyzer::saveLexems(string inputstring) {
     bool flag;
     for (int i = 0; i < length; i++) {
         if (inputstring[i] == ' ' || checkIfTerminal2(inputstring[i])) {
-            if (checkIfId(temp) == true) {
-                tokens.push_back("Id");
-            }
-            else if (checkIfEqual(temp) == true) {
-                tokens.push_back("Equal");
-            }
-
-            else if (checkIfOp(temp) == true) {
-                tokens.push_back("Op");
-            }
-            else if(temp.length()>0){
-                tokens.push_back("Not a valid token");
-            }
+            checkFun(temp);
             temp.clear();
             if (checkIfTerminal(inputstring[i])) {
                 tokens.push_back("terminal");
@@ -41,10 +29,28 @@ void LexicalAnalyzer::saveLexems(string inputstring) {
         }
     }
     if (temp.length() > 0) {
-        tokens.push_back(temp);
+        checkFun(temp);
     }
     tokens.push_back(".");
 }
+
+void LexicalAnalyzer::checkFun(string temp) {
+
+        if (checkIfId(temp) == true) {
+            tokens.push_back("Id");
+        }
+        else if (checkIfEqual(temp) == true) {
+            tokens.push_back("Equal");
+        }
+
+        else if (checkIfOp(temp) == true) {
+            tokens.push_back("Op");
+        }
+        else if (temp.length() > 0) {
+            tokens.push_back("~Not a valid token");
+        }
+
+ }
 
 string LexicalAnalyzer::getNextToken() {
     if (tokens.empty() == false) {
