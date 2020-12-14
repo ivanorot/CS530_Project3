@@ -5,11 +5,9 @@
 
 class Syntax {
 private:
-    //LexicalAnalyzer lexical;
-    //list<string> termTokens;
+    
     
 public:
-    //constructor (lexical analyzer as parameter)
     list<string> termTokens;
     Syntax();
 
@@ -19,44 +17,3 @@ public:
     bool term();
 };
 #endif
-
-/*
-* 
-* 
-
-bool assignment(){
-check if next token is id
-
-
-check if next token is =
-
-
-check if next token is exp
-
-
-check if next tokent is ;
-
-}
-
-bool expression(){
-
-check id
-
-check for op
-
-check for id
-
-return true
-
-
-
-[ id, op , id, .
-st
-}
-
-bool checkif(string token, string check){
-
-if (token == check)
-
-*/
-

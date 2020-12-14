@@ -61,26 +61,14 @@ bool Syntax::assignment(list<string> tokensList) {
 
 bool Syntax::expression(list<string> tokensList) {
     termTokens = tokensList;
-    //list<string> currentTokens = tokensList;
     
-    cout << "check for expression here" << endl;
-    cout << "Staring num termTokens in expr: " << termTokens.size() << endl;
+    cout << "check for assignment here" << endl;
     if (term()) {
-        cout << "  term successful check" << endl;
-        cout << "Current termTokens: " << termTokens.size() << endl;
-        if (termTokens.empty()) {
-            //cout << "successful expression return" << endl;
-            return true;
-        }
-        
+        cout << "  successful term" << endl;
         if (termTokens.front() == "Op") {
-            termTokens.pop_front();
-            cout << "Op made it" << endl;
-            
-            if (termTokens.empty())
-                return false; // may need to change to false
-            else
-                return expression(termTokens);
+            if (term()) {
+                return true;
+            }
         }
     }
     return false;
@@ -107,43 +95,3 @@ bool Syntax::term() {
     }
     return false;
 }
-
-/*
-* 
-* 
-
-bool assignment(){
-check if next token is id
-
-
-check if next token is =
-
-
-check if next token is exp
-
-
-check if next tokent is ;
-
-}
-
-bool expression(){
-
-check id
-
-check for op
-
-check for id
-
-return true
-
-
-
-[ id, op , id, .
-
-}
-
-bool checkif(string token, string check){
-
-if (token == check)
-
-*/
