@@ -1,8 +1,23 @@
+/************************************************
+ * COURSE:          CS-530 Systems Programming
+ * SECTION:         01 Synchronous TTh 1900-2015
+ * PROGRAM #:       3
+ * LAST MODIFIED:   14 December 2020
+ * @author Ivan Orozco 82217656 cssc3012
+ * @author Mariano Hernandez 820450001 cssc3062
+ ************************************************/
+
+/******************************************************************************
+  * Program 03: LexicalAnalyzer.cpp
+  *****************************************************************************
+  * PROGRAM DESCRIPTION:
+  * Extract and catagorizes tokens from from an input line for another user
+  * to parse through the tokens.
+  *****************************************************************************/
+
 #include "LexicalAnalyzer.h"
 
-
-LexicalAnalyzer::LexicalAnalyzer() {
-}
+LexicalAnalyzer::LexicalAnalyzer() {}
 
 void LexicalAnalyzer::saveLexems(string inputstring) {
     int length = inputstring.length();
@@ -120,7 +135,7 @@ bool LexicalAnalyzer::checkIfNum(int ascii) {
 //+ - * / %
 bool LexicalAnalyzer::checkIfOp(string op) {
     if (op=="+"||op=="-"||op == "*" || op=="/" || op=="%") {
-			return true;
+        return true;
     }
     return false;
 }

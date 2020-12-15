@@ -1,3 +1,24 @@
+/************************************************
+ * COURSE:          CS-530 Systems Programming
+ * SECTION:         01 Synchronous TTh 1900-2015
+ * PROGRAM #:       3
+ * LAST MODIFIED:   14 December 2020
+ * @author Ivan Orozco 82217656 cssc3012
+ * @author Mariano Hernandez 820450001 cssc3062
+ ************************************************/
+
+/******************************************************************************
+  * Program 03: Syntax.cpp
+  *****************************************************************************
+  * PROGRAM DESCRIPTION:
+  * Verifies an assignment or expression statment to be valid based on the 
+  * following BNF:
+  *
+  * <assignment> ::= <id> = <expression> ;
+  * <expression> ::= <term> <op> <term> {<op> <term>}
+  * <term> ::= <id> | ( <expression> )
+  *****************************************************************************/
+
 #include "Syntax.h"
 
 Syntax::Syntax() {}
@@ -18,11 +39,13 @@ bool Syntax::parseLine(string line){
     }
     //cout << "givenToken size: " << givenTokens.size() << endl;
     if (givenTokens.empty() == false) {
+        /* <assignment> */
         if (assignment(givenTokens)) {
             //cout << "true assignment statement above" << endl << endl;
             cout << "-- valid Statement" << endl;
             return true;
         }
+        /* <expression> */
         else if (expression(givenTokens)) {
             //cout << "true expression statement above" << endl << endl;
             cout << "-- valid Statement" << endl;
@@ -43,20 +66,24 @@ bool Syntax::assignment(list<string> tokensList) {
     bool terminalflag = true;
     
     //cout << "check for assignment here" << endl;
+    /* <id> */
     if (currentTokens.front() == "Id") {
         currentTokens.pop_front();
         //cout << "Id made it" << endl;
         
+        /* = */
         if (currentTokens.front() == "Equal") {
             flagAssignment = true;
             currentTokens.pop_front();
             //cout << "Equal made it" << endl;
             
+            /* ; */
             if (currentTokens.back() == "terminal") {
                 terminalflag = false;
                 currentTokens.pop_back();
                 //cout << "found terminal" << endl;
                 
+                /* <expression> */
                 if (expression(currentTokens)) {
                     //cout << "successful expression return" << endl;
                     return true;
@@ -76,20 +103,24 @@ bool Syntax::expression(list<string> tokensList) {
     termTokens = tokensList;
     
     //cout << "check for expression here" << endl;
+    /* <term> */
     if (term()) {
         //cout << "  successful term" << endl;
         if (extendedExp == true && termTokens.empty())
             return true;
         extendedExp = false;
+        
+        /* <op> */
         if ((termTokens.empty() == false) && termTokens.front() == "Op") {
             termTokens.pop_front();
-            
             //cout << "Op made it" << endl;
             
+            /* <term> */
             if (term()) {
                 //cout << "  successful term" << endl;
                 
                 if (termTokens.empty()) return true;
+                /* {<op> <term>> */
                 else if ((termTokens.empty() == false) && termTokens.front() == "Op") {
                     termTokens.pop_front();
                    // cout << "Extended Op made it" << endl;
@@ -108,7 +139,8 @@ bool Syntax::expression(list<string> tokensList) {
 }
 
 bool Syntax::term() {
-   // cout << "check for term here" << endl;
+    // cout << "check for term here" << endl;
+    /* <id> */
     if ((termTokens.empty() == false)&&termTokens.front() == "Id") {
        // cout << "  Id term" << endl;
         termTokens.pop_front();
@@ -121,6 +153,8 @@ bool Syntax::term() {
 //        }
         return true;
     }
+    
+    /* (<expression>) */
     else if ((termTokens.empty() == false) && termTokens.front() == "(") {
         termTokens.pop_front();
         //cout << "  open ( term" << endl;
