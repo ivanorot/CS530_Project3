@@ -83,7 +83,7 @@ bool Syntax::expression(list<string> tokensList) {
                 //cout << "  successful term" << endl;
                 
                 if (termTokens.empty()) return true;
-                else if (termTokens.front() == "Op") {
+                else if ((termTokens.empty() == false) && termTokens.front() == "Op") {
                     termTokens.pop_front();
                    // cout << "Extended Op made it" << endl;
                     extendedExp = true;
