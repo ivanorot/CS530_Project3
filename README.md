@@ -14,6 +14,11 @@ whether an assignment or expression statement is either valid or invalid. The
 methodology to determine the grammer is explained more in the "Design Process"
 section.
 
+**IMPORTANT for Grading Purposes**<br />
+note to the grader: please specify which .txt file is to be read as the second
+command line arguement and make sure to include it inside the ./a3 directory;
+otherwise, our testing file will run as explained in the following.
+
 To run the program...
 
 >start up a terminal and open the directory where the source code is stored,
@@ -25,17 +30,16 @@ To run the program...
 >
 >                make
 >
->run the executable:
+>run the executable (use the optional \<filetoparse>.txt if you are using
+>your own file and also make sure to include in the ./a3 directory; otherwise,
+>when running `parser` alone, it will use our *testing.txt* file):
 >
->                parser [<filetoparsed>.txt]
+>                parser [<filetoparse>.txt]
 
-upon execution, the program will output to the console each line that is read
+upon execution, the program will output to the console each line that was read
 from the incoming file then determine and output, right after the line that was
-read, whether it is valid or invalid statement. If it is an invalid statment,
-it will also output a list errors found in the statement.
-
-An output example of this, using our `testing.txt` file, can be found in the
-"Test Result" section.
+read, whether it is valid or where each part of the statement failed. If it is
+an invalid statment, it will also output a list errors found in the statement.
 
 
 ***
@@ -63,7 +67,8 @@ The BNF grammer used for this assignment is following:
 - The project became an easier task once we wrote a BNF to base our work on.
   Each BNF definition was translated into a method in our parser, and each
   method had its own error message, which also made it easier to debug our project.
-- Another techniques we practiced were recursive functions
+- Another technique we practiced was the of recursive functions to facilitate
+  the BNF grammer
 
 ***
 ## Directories/Files
@@ -98,17 +103,4 @@ run the program; plus information regarding the program.
 
 >- *README.md* (this file)
     - details the information of this program
-
-
-
-***
-## Test Results
-
-(note: if reading unformatted in the markdown language, the files do
-not contain any markdown syntax i.e. `<br />`, #, or \`)
-
-output on running some tests using the testing statements:<br />
-
-
-### testing.txt:
 

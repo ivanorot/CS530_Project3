@@ -12,7 +12,7 @@
   *****************************************************************************
   * PROGRAM DESCRIPTION:
   * Starting point for the statement parsing program, where the files are to be
-  * read and parsed
+  * read and parsed.
   *****************************************************************************/
 
 #include <fstream>
@@ -26,15 +26,22 @@ int main(int argc, char* argv[]) {
     cout << "@author Mariano Hernandez 820450001 cssc3062\n\n";
     
 
-    // if (argc != 2) {
-    //     cout << "Incorrect number of arguemnts\n";
-    //     cerr << "Correct usage: dis <filename>\n";
-    //     return 1;    
-    // }
+    if (argc > 2) {
+        cout << "Incorrect number of arguemnts\n";
+        cerr << "Correct usage: parser [<filetoparse>.txt]\n";
+        return 1;    
+    }
     
     Syntax syntax_analyzer;
-    ifstream file("testing.txt");
+    ifstream file;
     string inputLine;
+    
+    if (argc == 2) {
+        file.open(argv[1]);
+    }
+    else {
+        file.open("testing.txt");
+    }
     
     if (!file.is_open()) {
         cout << "Error with file\n";
