@@ -17,20 +17,22 @@ bool Syntax::parseLine(string line){
         temp = lex_analyzer.getNextToken();
     }
     //cout << "givenToken size: " << givenTokens.size() << endl;
-    if (assignment(givenTokens)) {
-        //cout << "true assignment statement above" << endl << endl;
-        cout << "-- valid" << endl;
-        return true;
-    }
-    else if (expression(givenTokens)) {
-        //cout << "true expression statement above" << endl << endl;
-        cout << "-- valid" << endl;
-        return true;
-    }
-    else {
-        //cout << "bad statement above" << endl << endl;
-        cout << "-- invalid" << endl;
-        return false;
+    if (givenTokens.empty() == false) {
+        if (assignment(givenTokens)) {
+            //cout << "true assignment statement above" << endl << endl;
+            cout << "-- valid" << endl;
+            return true;
+        }
+        else if (expression(givenTokens)) {
+            //cout << "true expression statement above" << endl << endl;
+            cout << "-- valid" << endl;
+            return true;
+        }
+        else {
+            //cout << "bad statement above" << endl << endl;
+            cout << "-- invalid" << endl;
+            return false;
+        }
     }
 }
 
@@ -67,23 +69,23 @@ bool Syntax::assignment(list<string> tokensList) {
 bool Syntax::expression(list<string> tokensList) {
     termTokens = tokensList;
     
-    cout << "check for expression here" << endl;
+    //cout << "check for expression here" << endl;
     if (term()) {
-        cout << "  successful term" << endl;
+        //cout << "  successful term" << endl;
         if (extendedExp == true && termTokens.empty())
             return true;
         extendedExp = false;
-        if (termTokens.front() == "Op") {
+        if ((termTokens.empty() == false) && termTokens.front() == "Op") {
             termTokens.pop_front();
-            cout << "Op made it" << endl;
+            //cout << "Op made it" << endl;
             
             if (term()) {
-                cout << "  successful term" << endl;
+                //cout << "  successful term" << endl;
                 
                 if (termTokens.empty()) return true;
                 else if (termTokens.front() == "Op") {
                     termTokens.pop_front();
-                    cout << "Extended Op made it" << endl;
+                   // cout << "Extended Op made it" << endl;
                     extendedExp = true;
                     return expression(termTokens);
                 }
@@ -95,9 +97,9 @@ bool Syntax::expression(list<string> tokensList) {
 }
 
 bool Syntax::term() {
-    cout << "check for term here" << endl;
+   // cout << "check for term here" << endl;
     if (termTokens.front() == "Id") {
-        cout << "  Id term" << endl;
+       // cout << "  Id term" << endl;
         termTokens.pop_front();
         
         if (termTokens.empty()) return true;
@@ -110,11 +112,12 @@ bool Syntax::term() {
     }
     else if (termTokens.front() == "(") {
         termTokens.pop_front();
-        cout << "  open ( term" << endl;
+        //cout << "  open ( term" << endl;
         if (expression(termTokens)) {
+
             if (termTokens.front() == ")") {
                 termTokens.pop_front();
-                cout << "  open ( term" << endl;
+                //cout << "  open ( term" << endl;
                 return true;
             }
         }
