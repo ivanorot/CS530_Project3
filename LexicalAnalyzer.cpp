@@ -48,6 +48,7 @@ void LexicalAnalyzer::checkFun(string temp) {
         }
         else if (temp.length() > 0) {
             tokens.push_back("~Not a valid token");
+            cout<<endl<<"---"<<"\'"<< temp <<"\' is not a valid token";
         }
 
  }
