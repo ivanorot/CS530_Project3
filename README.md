@@ -89,7 +89,7 @@ run the program; plus information regarding the program.
 >- *Syntax.cpp*
     - source code for the basic Syntax
 
->- *Testing.txt*
+>- *testing.txt*
     - provided sample symbol file that contain the SYMTAB and LITTAB
 
 >- *README.md* (this file)
@@ -106,32 +106,5 @@ not contain any markdown syntax i.e. `<br />`, #, or \`)
 output on running some tests using the testing files:<br />
 
 
-### sample.sic:
+### testing.txt:
 
-SUM     START   0<br />
-        LDX     #FIRST<br />
-        LDA     =X'3F'<br />
-        +LDB    #TABLE2<br />
-        BASE    #TABLE2<br />
-        ADD     TABLE,X<br />
-        ADD     TABLE2,X<br />
-        TIX     COUNT<br />
-        JLT     LOOP<br />
-        +STA    TOTAL<br />
-        RSUB    FIRST<br />
-        END     0<br />
-        
-### sample.lis:
-
-        SUM     START   o  <br />
-000000          LDX     #FIRST          050000<br />
-000003          LDA     =X'3F'          032000<br />
-000007          +LDB    #TABLE2         69101791<br />
-                BASE    #TABLE2<br />
-00000B          ADD     TABLE,X         1BA013<br />
-00000E          ADD     TABLE2,X                1BC000<br />
-000011          TIX     COUNT           2F200A<br />
-000014          JLT     LOOP            3B2FF4<br />
-000017          +STA    TOTAL           0F102F01<br />
-00001B          RSUB    FIRST           4F0000<br />
-END     0
