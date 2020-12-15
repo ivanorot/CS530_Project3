@@ -20,17 +20,18 @@ bool Syntax::parseLine(string line){
     if (givenTokens.empty() == false) {
         if (assignment(givenTokens)) {
             //cout << "true assignment statement above" << endl << endl;
-            cout << "-- valid" << endl;
+            cout << "-- valid Statement" << endl;
             return true;
         }
         else if (expression(givenTokens)) {
             //cout << "true expression statement above" << endl << endl;
-            cout << "-- valid" << endl;
+            cout << "-- valid Statement" << endl;
             return true;
         }
         else {
             //cout << "bad statement above" << endl << endl;
-            cout << "-- invalid" << endl;
+            //cout << "-- invalid" << endl;
+            cout << endl<<endl;
             return false;
         }
     }
@@ -39,6 +40,7 @@ bool Syntax::parseLine(string line){
 bool Syntax::assignment(list<string> tokensList) {
     list<string> currentTokens = tokensList;
     bool flagAssignment = false;
+    bool terminalflag = true;
     
     //cout << "check for assignment here" << endl;
     if (currentTokens.front() == "Id") {
@@ -51,6 +53,7 @@ bool Syntax::assignment(list<string> tokensList) {
             //cout << "Equal made it" << endl;
             
             if (currentTokens.back() == "terminal") {
+                terminalflag = false;
                 currentTokens.pop_back();
                 //cout << "found terminal" << endl;
                 
@@ -59,10 +62,13 @@ bool Syntax::assignment(list<string> tokensList) {
                     return true;
                 }
             }
+            if (terminalflag) {
+                cout << endl << "---Expected a ';'";
+            }
         }
     }
     if (flagAssignment == true)
-        //cout << "<Assignment> Failed" << endl;
+        cout <<endl<<"---<Assgmnt>"<<"\t"<< "\t" << " failed";
     return false;
 }
 
@@ -77,6 +83,7 @@ bool Syntax::expression(list<string> tokensList) {
         extendedExp = false;
         if ((termTokens.empty() == false) && termTokens.front() == "Op") {
             termTokens.pop_front();
+            
             //cout << "Op made it" << endl;
             
             if (term()) {
@@ -91,14 +98,18 @@ bool Syntax::expression(list<string> tokensList) {
                 }
                 return true;
             }
+
+
+            cout << endl << "---<exp>" << "\t" << "\t" << " failed";
         }
+        
     }
     return false;
 }
 
 bool Syntax::term() {
    // cout << "check for term here" << endl;
-    if (termTokens.front() == "Id") {
+    if ((termTokens.empty() == false)&&termTokens.front() == "Id") {
        // cout << "  Id term" << endl;
         termTokens.pop_front();
         
@@ -110,18 +121,22 @@ bool Syntax::term() {
 //        }
         return true;
     }
-    else if (termTokens.front() == "(") {
+    else if ((termTokens.empty() == false) && termTokens.front() == "(") {
         termTokens.pop_front();
         //cout << "  open ( term" << endl;
         if (expression(termTokens)) {
 
-            if (termTokens.front() == ")") {
+            if ((termTokens.empty() == false) && termTokens.front() == ")") {
                 termTokens.pop_front();
                 //cout << "  open ( term" << endl;
                 return true;
             }
+            cout << endl <<"---Expected a ')'";
+
         }
+        
     }
+    cout <<endl<< "---<term>" << "\t" << "\t" << " failed";
     return false;
 }
 
