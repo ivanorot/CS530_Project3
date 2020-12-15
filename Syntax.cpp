@@ -130,8 +130,8 @@ bool Syntax::expression(list<string> tokensList) {
                 return true;
             }
 
-
             cout << endl << "---<exp>" << "\t" << "\t" << " failed";
+           
         }
         
     }
@@ -141,6 +141,7 @@ bool Syntax::expression(list<string> tokensList) {
 bool Syntax::term() {
     // cout << "check for term here" << endl;
     /* <id> */
+    bool parenthesisflag = false;;
     if ((termTokens.empty() == false)&&termTokens.front() == "Id") {
        // cout << "  Id term" << endl;
         termTokens.pop_front();
@@ -157,18 +158,23 @@ bool Syntax::term() {
     /* (<expression>) */
     else if ((termTokens.empty() == false) && termTokens.front() == "(") {
         termTokens.pop_front();
+        parenthesisflag = true;
         //cout << "  open ( term" << endl;
         if (expression(termTokens)) {
+            parenthesisflag = false;
+          
 
             if ((termTokens.empty() == false) && termTokens.front() == ")") {
                 termTokens.pop_front();
                 //cout << "  open ( term" << endl;
                 return true;
             }
-            cout << endl <<"---Expected a ')'";
-
+           
+            cout << endl << "---Expected a ')'";
         }
-        
+        if (parenthesisflag) {
+            cout << endl << "---<exp>" << "\t" << "\t" << " failed";
+        }
     }
     cout <<endl<< "---<term>" << "\t" << "\t" << " failed";
     return false;
